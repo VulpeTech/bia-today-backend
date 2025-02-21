@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+{
+  version: '1.0.0',
+  message: 'Welcome to the API',
+  maintaners: [
+    { name: 'Lucas Pizol Ferreira', email: 'lucaspizolfe@gmail.com' },
+    { name: 'Matheus Carvalho', email: 'matheus_carvalho492@gmail.com' },
+  ]
+}
