@@ -2,5 +2,7 @@
 
 {
   id: user.id,
-  username: user.username
+  email: user.email,
+  name: user.name,
+  fee: user.tax
 }.tap { |hash| hash[:token] = @token if @token.present? }

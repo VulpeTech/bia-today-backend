@@ -4,21 +4,25 @@ class Api::Authentication::LoginController < ApplicationController
   skip_before_action :authenticate_request
 
   def create
-    @user = User.find_by(username: login_params[:username])
+    @user = User.find_by_login(
+      email: login_params[:login],
+      cellphone: login_params[:login]
+    )
 
     unless @user&.authenticate(login_params[:password])
-      return render json: { error: I18n.t('errors/messages.invalid_login') },
+      return render json: { message: I18n.t('errors/messages.invalid_login') },
                     status: :unauthorized
     end
 
     @token = JwtService.encode(user_id: @user.id)
-  rescue StandardError
-    render json: { error: I18n.t('errors/messages.invalid_login') }, status: :unauthorized
+  rescue StandardError => e
+    puts "Error: #{e.message}"
+    render json: { message: I18n.t('errors/messages.invalid_login') }, status: :unauthorized
   end
 
   private
 
   def login_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:login, :password)
   end
 end

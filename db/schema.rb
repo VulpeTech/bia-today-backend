@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_21_221314) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_26_164547) do
   create_table "customer_users", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.integer "user_id", null: false
@@ -27,25 +27,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_21_221314) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "has_accepted_terms", default: false
   end
 
   create_table "orders", force: :cascade do |t|
     t.integer "customer_user_id", null: false
     t.integer "product_id"
-    t.integer "value", null: false
+    t.decimal "value", precision: 10, scale: 2, null: false
     t.string "status", null: false
-    t.string "type", null: false
-    t.integer "points", null: false
+    t.string "order_type", null: false
+    t.decimal "points", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "whatsapp_message_id"
     t.index ["customer_user_id"], name: "index_orders_on_customer_user_id"
     t.index ["product_id"], name: "index_orders_on_product_id"
+    t.index ["whatsapp_message_id"], name: "index_orders_on_whatsapp_message_id"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
-    t.integer "price", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -57,9 +60,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_21_221314) do
     t.string "cellphone", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
-    t.integer "tax", null: false
+    t.decimal "tax", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.bigint "whodunnit"
+    t.datetime "created_at"
+    t.bigint "item_id", null: false
+    t.string "item_type", null: false
+    t.string "event", null: false
+    t.text "object", limit: 1073741823
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  end
+
+  create_table "whatsapp_messages", force: :cascade do |t|
+    t.string "message_id", null: false
+    t.string "status", null: false
+    t.string "template"
+    t.integer "customer_id", null: false
+    t.string "error_message"
+    t.string "error_details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_whatsapp_messages_on_customer_id"
   end
 
   add_foreign_key "customer_users", "customers"

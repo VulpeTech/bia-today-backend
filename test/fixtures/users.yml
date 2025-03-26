@@ -7,7 +7,7 @@
 #  cellphone       :string           not null
 #  email           :string           not null
 #  password_digest :string           not null
-#  tax             :integer          not null
+#  tax             :decimal(10, 2)   not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

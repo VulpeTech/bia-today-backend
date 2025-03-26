@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+customer = order.customer
+{
+  id: order.id,
+  value: order.value,
+  points: order.points,
+  createdAt: order.created_at,
+  updatedAt: order.updated_at,
+  type: order.order_type,
+  productId: order.product_id,
+  status: order.status,
+  customer: customer
+}

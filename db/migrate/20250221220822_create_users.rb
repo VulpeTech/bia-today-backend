@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.string :cellphone, null: false
       t.string :email, null: false
       t.string :password_digest, null: false
-      t.integer :tax, null: false
+      t.decimal :tax, precision: 10, scale: 2, null: false
 
       t.timestamps
     end

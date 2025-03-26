@@ -1,0 +1,42 @@
+{
+  "1": {
+    "recipient_type": "individual",
+    "to": "5535997506550",
+    "messaging_product": "whatsapp",
+    "type": "interactive",
+    "interactive": {
+      "type": "button",
+      "header": { "type": "text", "text": "Bia Today" },
+      "body": { "text": "Olá! Tudo bem? Em que posso lhe ajudar hoje?" },
+      "footer": { "text": "Escolha uma opção" },
+      "action": {
+        "buttons": [
+          {
+            "type": "reply",
+            "reply": { "id": "consultar", "title": "Consultar pontos" }
+          }
+        ]
+      }
+    }
+  },
+  "2": {
+    "recipient_type": "individual",
+    "to": "5535997506550",
+    "messaging_product": "whatsapp",
+    "type": "interactive",
+    "interactive": {
+      "type": "button",
+      "header": { "type": "text", "text": "Bia Today" },
+      "body": { "text": "Bem-vindo ao Bia Today!" },
+      "footer": { "text": "Bia Today" },
+      "action": {
+        "buttons": [
+          {
+            "type": "reply",
+            "reply": { "id": "consultar", "title": "Consultar pontos" }
+          }
+        ]
+      }
+    }
+  }
+}

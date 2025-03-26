@@ -1,0 +1,11 @@
+pt-BR:
+  errors/messages:
+    invalid_login: "Usuário ou senha inválidos."
+    invalid_session: "Sessão expirada ou inválida."
+    error: "Erro ao processar a requisição."
+
+en:
+  errors/messages:
+    invalid_login: "Invalid username or password."
+    invalid_session: "Expired or invalid session."
+    error: "Error processing the request."

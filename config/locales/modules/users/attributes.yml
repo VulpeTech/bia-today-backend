@@ -1,0 +1,23 @@
+pt-BR:
+  activerecord:
+    attributes:
+      user:
+        password: "Senha"
+        password_confirmation: "Confirmação de Senha"
+        email: "E-mail"
+        cellphone: "Celular"
+        full_name: "Nome Completo"
+        username: "Nome de Usuário"
+        birthdate: "Data de Nascimento"
+
+en:
+  activerecord:
+    attributes:
+      user:
+        password: "Password"
+        password_confirmation: "Password Confirmation"
+        email: "E-mail"
+        cellphone: "Cellphone"
+        full_name: "Full Name"
+        username: "Username"
+        birthdate: "Birthdate"
