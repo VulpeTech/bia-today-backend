@@ -17,6 +17,11 @@ class Api::ProductsController < ApplicationController
 
   def destroy
     @product.destroy!
+  rescue SQLite3::ConstraintException => e
+    render json: { message: 'Não foi possível excluir o produto, pois ele já foi associado a um pedido.' },
+           status: :unprocessable_entity
+  rescue => e
+    render json: { message: "Não foi possível excluir o produto, pois ele já foi associado a um pedido." }, status: :unprocessable_entity
   end
 
   private

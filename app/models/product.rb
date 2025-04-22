@@ -19,4 +19,7 @@ class Product < ApplicationRecord
   has_paper_trail
 
   belongs_to :user
+  has_many :orders
+  has_many :customer_users, through: :orders
+  has_many :customers, through: :customer_users
 end

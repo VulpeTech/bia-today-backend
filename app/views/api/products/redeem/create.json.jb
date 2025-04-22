@@ -1,0 +1,3 @@
+{
+  order: render('api/orders/parse_order', order: @order)
+}
