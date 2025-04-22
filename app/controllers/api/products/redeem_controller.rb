@@ -14,7 +14,8 @@ class Api::Products::RedeemController < ApplicationController
                           status: 'pending',
                           order_type: 'debit',
                           value: product.price,
-                          points: product.price)
+                          points: product.price,
+                          product: product)
 
       template = RedeemProductTemplate.new(order: @order, customer: @customer, user: @current_user, product: product)
 
@@ -25,7 +26,7 @@ class Api::Products::RedeemController < ApplicationController
       @order.update!(whatsapp_message: whatsapp_message)
     end
 
-    render 'api/orders/create', status: :created
+    render :create, status: :created
   rescue => e
     render json: { message: e.message }, status: :unprocessable_entity
   end
