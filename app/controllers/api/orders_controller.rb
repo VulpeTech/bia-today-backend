@@ -3,19 +3,17 @@ class Api::OrdersController < ApplicationController
   before_action :initialize_customer, only: :create
 
   def index
-    @orders = @current_user.orders
+    @orders = @current_user.orders.includes(:customer)
+                           .ransack(search_params)
+                           .result
 
     @total = @orders.count
 
-    @orders = @orders.includes(:customer)
-                      .ransack(search_params)
-                      .result
-                      .offset(@offset)
-                      .limit(@limit)
+    @orders = @orders.offset(@offset).limit(@limit)
   end
 
   def create
-    points = order_params[:purchase_value] * @current_user.tax
+    points = order_params[:purchase_value] * @current_user.tax / 100
 
     ActiveRecord::Base.transaction do
       @order = @customer.customer_users.find_or_create_by(user: @current_user)
@@ -23,8 +21,7 @@ class Api::OrdersController < ApplicationController
                         status: @customer.has_accepted_terms ? 'approved' : 'pending',
                         points: points,
                         order_type: 'credit',
-                        value: order_params[:purchase_value],
-                      )
+                        value: order_params[:purchase_value])
 
     template = @customer.has_accepted_terms ?
       ReceivePointsTemplate.new(order: @order, customer: @customer, user: @current_user)
