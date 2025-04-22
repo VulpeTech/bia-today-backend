@@ -30,3 +30,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+nginx.conf
+bundle_cache/
+certbot/
+node_modules/
