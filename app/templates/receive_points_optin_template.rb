@@ -8,8 +8,8 @@ class ReceivePointsOptinTemplate
   def build
     [
       { type: "text", text: @user.name },
-      { type: "text", text: String(@order.points) },
-      { type: "text", text: String(@order.value) },
+      { type: "text", text: @order.points.to_s },
+      { type: "text", text: @order.value.to_s },
       { type: "text", text: Time.current.to_date.to_s },
       { type: "text", text: @user.name }
     ]
