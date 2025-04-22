@@ -15,9 +15,7 @@ class Webhook::WhatsappController < Webhook::ApplicationController
 
     head :ok
   rescue => e
-    puts "error: #{e}"
-
-    head :ok
+    render json: { error: e.message }, status: :ok
   end
 
   private
