@@ -22,49 +22,36 @@ class Customer < ApplicationRecord
   def aggregate_points
     self.customer_users
         .joins(:orders, :user)
+        .where(orders: { status: 'approved' })
         .select('users.name as company_name')
         .select('
-          SUM(CASE WHEN orders.order_type = \'credit\' AND orders.status = \'approved\' THEN orders.value ELSE 0 END) -
-          SUM(CASE WHEN orders.order_type = \'debit\' AND orders.status = \'approved\' THEN orders.value ELSE 0 END) as balance
+          SUM(CASE WHEN orders.order_type = \'credit\' THEN orders.points ELSE 0 END) -
+          SUM(CASE WHEN orders.order_type = \'debit\' THEN orders.points ELSE 0 END) as balance
         ')
         .group('users.name')
   end
 
   def calculate_points(user:)
-    self.orders
-        .joins(customer_user: :user)
-        .where(
-          customer_user: { user: user },
-          status: 'approved'
-        )
-        .select(
-          'SUM(CASE WHEN orders.order_type = \'credit\' THEN orders.value ELSE 0 END) -
-           SUM(CASE WHEN orders.order_type = \'debit\' THEN orders.value ELSE 0 END) as points'
-        )
-        .group('customer_users.customer_id')
+    self.customer_users
+        .joins(:orders, :user)
+        .where(orders: { status: 'approved' })
+        .where(user: user)
+        .select('
+          SUM(CASE WHEN orders.order_type = \'credit\' THEN orders.points ELSE 0 END) -
+          SUM(CASE WHEN orders.order_type = \'debit\' THEN orders.points ELSE 0 END) as points
+        ')
+        .group('users.name')
         .first
-        .points
+        &.points || 0
   end
 
   def self.find_or_create_by_cellphone(cellphone:)
-    formatted_cellphone = cellphone.gsub(/\D/, '')
+    phone = Cellphone.new(cellphone).to_s
 
-    unless formatted_cellphone.start_with?('55')
-      formatted_cellphone = formatted_cellphone.insert(0, '55')
-    end
-
-    if formatted_cellphone.length == 12
-      formatted_cellphone = formatted_cellphone.insert(4, '9')
-    end
-
-    if formatted_cellphone.length != 13
-      raise ActiveRecord::RecordInvalid, 'Cellphone must be 13 digits'
-    end
-
-    customer = Customer.find_by(cellphone: formatted_cellphone)
+    customer = Customer.find_by(cellphone: phone)
 
     return customer if customer.present?
 
-    Customer.create!(cellphone: formatted_cellphone)
+    Customer.create!(cellphone: phone)
   end
 end

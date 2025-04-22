@@ -1,0 +1,7 @@
+{
+  customer: {
+    id: @customer.id,
+    cellphone: @customer.cellphone,
+    points: @points
+  }
+}

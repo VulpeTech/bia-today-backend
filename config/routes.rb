@@ -7,6 +7,8 @@ Rails.application.routes.draw do
         resources :me, only: :index
       end
 
+      resource :customers, only: :show
+
       namespace :products do
         resources :redeem, only: :create
       end
