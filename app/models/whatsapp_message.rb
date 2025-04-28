@@ -2,15 +2,15 @@
 #
 # Table name: whatsapp_messages
 #
-#  id            :integer          not null, primary key
-#  message_id    :string           not null
+#  id            :string           not null, primary key
+#  error_details :string
+#  error_message :string
 #  status        :string           not null
 #  template      :string
-#  customer_id   :integer          not null
-#  error_message :string
-#  error_details :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  customer_id   :string           not null
+#  message_id    :string           not null
 #
 # Indexes
 #

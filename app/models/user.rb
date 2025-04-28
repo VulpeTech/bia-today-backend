@@ -2,10 +2,10 @@
 #
 # Table name: users
 #
-#  id              :integer          not null, primary key
-#  name            :string           not null
+#  id              :string           not null, primary key
 #  cellphone       :string           not null
 #  email           :string           not null
+#  name            :string           not null
 #  password_digest :string           not null
 #  tax             :decimal(10, 2)   not null
 #  created_at      :datetime         not null

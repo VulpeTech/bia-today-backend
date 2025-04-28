@@ -17,5 +17,9 @@ module Backend
     config.i18n.fallbacks = [:en]
 
     config.api_only = true
+
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+    end
   end
 end

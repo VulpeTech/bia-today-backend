@@ -11,16 +11,16 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2025_03_26_164547) do
-  create_table "customer_users", force: :cascade do |t|
-    t.integer "customer_id", null: false
-    t.integer "user_id", null: false
+  create_table "customer_users", id: :string, force: :cascade do |t|
+    t.string "customer_id", null: false
+    t.string "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_customer_users_on_customer_id"
     t.index ["user_id"], name: "index_customer_users_on_user_id"
   end
 
-  create_table "customers", force: :cascade do |t|
+  create_table "customers", id: :string, force: :cascade do |t|
     t.string "name"
     t.string "cellphone", null: false
     t.string "cpf_cnpj"
@@ -30,9 +30,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_164547) do
     t.boolean "has_accepted_terms", default: false
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.integer "customer_user_id", null: false
-    t.integer "product_id"
+  create_table "orders", id: :string, force: :cascade do |t|
+    t.string "customer_user_id", null: false
+    t.string "product_id"
     t.decimal "value", precision: 10, scale: 2, null: false
     t.string "status", null: false
     t.string "order_type", null: false
@@ -45,17 +45,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_164547) do
     t.index ["whatsapp_message_id"], name: "index_orders_on_whatsapp_message_id"
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "products", id: :string, force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.decimal "price", precision: 10, scale: 2, null: false
-    t.integer "user_id", null: false
+    t.string "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :string, force: :cascade do |t|
     t.string "name", null: false
     t.string "cellphone", null: false
     t.string "email", null: false
@@ -66,20 +66,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_164547) do
   end
 
   create_table "versions", force: :cascade do |t|
-    t.bigint "whodunnit"
+    t.string "whodunnit"
     t.datetime "created_at"
-    t.bigint "item_id", null: false
+    t.string "item_id", null: false
     t.string "item_type", null: false
     t.string "event", null: false
     t.text "object", limit: 1073741823
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  create_table "whatsapp_messages", force: :cascade do |t|
+  create_table "whatsapp_messages", id: :string, force: :cascade do |t|
     t.string "message_id", null: false
     t.string "status", null: false
     t.string "template"
-    t.integer "customer_id", null: false
+    t.string "customer_id", null: false
     t.string "error_message"
     t.string "error_details"
     t.datetime "created_at", null: false
